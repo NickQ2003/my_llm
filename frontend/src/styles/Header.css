@@ -1,0 +1,237 @@
+/* Menú hamburguesa */
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: fit-content;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  cursor: pointer;
+}
+
+.menu-icon div {
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.menu-icon div:nth-child(2) {
+  width: 14px;
+}
+
+.menu-icon div:nth-child(3) {
+  width: 10px;
+}
+
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #083042, #0e0e23);
+  color: white;
+  padding: 20px 15px;
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 1000;
+  border: 2px solid rgba(97, 89, 89, 0.5);
+  border-radius: 5px;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar.open ~ .menu-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.section {
+    margin-bottom: 20px;
+    margin-top: 1rem;
+}
+
+.section h3 {
+  font-size: 1rem;
+  background-color: #19424e;
+  padding: 8px 10px;
+  border-radius: 0px 50px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section p {
+  font-size: 0.9rem;
+  margin: 5px 10px;
+  color: #cfcfcf;
+}
+
+.buttom_slider{
+  margin-left: 10rem;  
+  top: 1.5%;
+  position: absolute;
+  display: flex;
+  gap: 0.5rem;
+  height: auto;
+}
+
+.buttom_slider button{
+  background-color: rgba(128, 128, 128, 0.5);
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 5px;
+  padding-top: 6px;
+  border-radius: 100%;
+  
+}
+
+.buttom_slider button:hover{
+  background-color: rgba(31, 73, 80, 0.5);
+  border: none;
+}
+
+.Ajustes{
+  position: absolute;
+  bottom: 3.2rem;
+}
+
+.Ajustes button{
+  background-color: rgba(31, 73, 80, 0.5);
+  border-radius: 50px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.sections{
+  margin-top: 3rem;
+}
+
+/* Dirigidor al onPremises */
+
+.Menu_Desplegable{
+  padding-left: 2px;
+  padding-right: 10px;
+}
+
+.Chat-Logo {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 5px;
+  padding-right: 10px;
+  color: white;
+  transition: transform 0.4s ease;
+  position: absolute;
+  left: 2rem;
+  min-height: 1rem;
+  top: 0.4rem; 
+  z-index: 1000;
+}
+
+.Chat-Logo img{
+  height: 40px;
+  width: 130px;
+}
+
+.desplegable-contenido{
+  background-color: white;
+}
+
+.desplegable-contenido button{
+   margin-top: 3rem;
+   margin-left: 1.5rem;
+   position: absolute;
+   background-color: rgb(31, 73, 80, 0.5);
+   padding-left: 1px;
+   padding-right: 3rem;
+   border-radius: 0 0;
+   color: white;
+   border-radius: 5px;
+   z-index: 9999;
+}
+
+.title span{
+  margin-right: 0.5rem;
+}
+
+.rol span{
+  margin-right: 0.5rem;
+  margin-left: 2rem;
+}
+
+.rol{
+  font-size: small;
+  margin-top: 3%;
+  opacity: 0.5;
+}
+
+.Boton_Inicio{
+  position: absolute;
+  left: 43rem;
+  top: 0.6rem;
+}
+
+.Boton_Inicio button{
+  position: absolute;
+  margin-left: 32rem;;
+  background-color: rgb(31, 73, 80, 0.5);
+  border: 2px solid gray;
+  border-radius: 5px;
+  color: white;
+  opacity: 0.7;
+}
+
+
+.Boton_Inicio {
+  position: absolute;
+}
+
+.desplegable-Cloud button{
+   margin-top: 3rem;
+   margin-left: 2.6rem;
+   position: absolute;
+   background-color: rgb(31, 73, 80, 0.5);
+   padding-left: 30px;
+   padding-right: 1.5rem;
+   border-radius: 0 0;
+   color: white;
+   border-radius: 0 0 5px 5px;
+}
+
+
+/* Estilos para móviles */
+@media (max-width: 600px) {
+  .contenedor {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .logo {
+    width: 100px;
+  }
+}
+
+/* Estilos para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .contenedor {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 1025px) {
+  .contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

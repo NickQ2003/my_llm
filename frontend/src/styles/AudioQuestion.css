@@ -1,0 +1,48 @@
+.audio-question-container{
+  
+}
+
+.audio-question-container h2{
+  font-size: xx-small;
+  display: none;
+}
+
+.btn-record{
+  background-color: #676C74;
+  border-radius: 100%;
+  border: 2px solid #a1afc5;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+}
+
+.audio-btn{
+  background-color: #676C74;
+  border-radius: 100%;
+  border: 2px solid #a1afc5;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+}
+
+.audio-recording-label{
+  position: absolute;
+  bottom: 2.5rem;
+  right: 1px;
+}
+
+.audio-player{
+  position: absolute;
+  z-index: 1000;
+  right: 23.5rem;
+  bottom: 0.1rem;
+  width: 15rem;
+}
+
+.audio-transcript{
+  position: absolute;
+}
+
+.audio-section{
+  position: absolute;
+}

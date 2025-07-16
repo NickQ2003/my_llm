@@ -1,0 +1,1251 @@
+@import url("./styles/Header.css");
+@import url("./styles/InicioSesion.css");
+@import url("./styles/LightMode.css");
+@import url("./styles/Historial.css");
+
+/* Variables globales */
+:root {
+  min-width: 400px;
+  min-height: 400px;
+
+  --primary-color: #2c3e50;
+  --markdown-strong-color: #33e1cd;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --text-primary: #ecf0f1;
+  --text-secondary: #95a5a6;
+  --dark-bg: #1a2526;
+  --medium-bg: #2e3b3e;
+  --light-bg: #34495e;
+  --input-bg: #3c4f5e;
+  --card-bg: #22313f;
+  --header-bg: #1a2526;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  --glow: 0 0 10px rgba(52, 152, 219, 0.15);
+  --header-height: 70px;
+  --border-color: #4a5e6a;
+  --hover-bg: #3e5c76;
+  --button-bg: #3498db;
+  --button-hover: #2980b9;
+  --message-user-bg: #3498db;
+  --message-bot-bg: #2e3b3e;
+}
+
+/* Reseteo y estilos base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+   background:
+    radial-gradient(circle at bottom right, #12b2c2 0%, #0a1e2d 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    cover,
+    40px 40px, 40px 40px; /* tamaño del grid */
+  background-position:
+    center,
+    top left, top left;
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Botón de cambio de tema */
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--secondary-color);
+}
+
+/* Logo */
+.logo {
+  width: 150px;
+  height: auto;
+  transition: filter 0.3s ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 10px var(--secondary-color));
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: var(--header-bg);
+  display: none; /* Esto bloquea el header quitar una ves todo alla acabado*/
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+   /*z-index: 1000;*/
+  height: var(--header-height);
+}
+.onpremise-chat-container .message.bot .markdown-content {
+  /* No necesita estilos propios, solo sirve para el selector */
+  margin-top: 5px; /* Pequeño espacio opcional después del "MATEO:" */
+}
+
+/* Estilos para elementos generados por ReactMarkdown DENTRO del mensaje del bot */
+.onpremise-chat-container .message.bot h1 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--text-primary); /* Texto primario claro */
+  margin-top: 0.8em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid var(--secondary-color); /* Borde azul */
+}
+
+.onpremise-chat-container .message.bot h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text-primary); /* Ligeramente menos énfasis que H1 */
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+  padding-bottom: 0.1em;
+  border-bottom: 1px solid var(--border-color); /* Borde gris oscuro */
+}
+
+.onpremise-chat-container .message.bot h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--text-secondary); /* Texto secundario */
+  margin-top: 0.8em;
+  margin-bottom: 0.3em;
+}
+
+.onpremise-chat-container .message.bot strong { /* Estilo para Negrita */
+  font-weight: 700; /* Asegurar que sea suficientemente grueso */
+  color: var(--markdown-strong-color); /* ¡Tu color Cyan para resaltar! */
+}
+
+.onpremise-chat-container .message.bot p {
+  margin-bottom: 0.7em; /* Reemplaza regla antigua de .message p si existía */
+}
+
+/* Estilos para Listas (Reutiliza tu clase existente .message-list si la genera react-markdown, o usa ul/ol directamente) */
+.onpremise-chat-container .message.bot ul,
+.onpremise-chat-container .message.bot ol {
+  margin: 0.5em 0 0.7em 0; /* Usa margen en lugar de 1rem top */
+  padding-left: 25px; /* Indentación */
+  list-style-type: disc; /* O decimal para <ol> */
+  color: var(--text-primary);
+}
+.onpremise-chat-container .message.bot li {
+  margin-bottom: 0.4em; /* Espacio entre items */
+  line-height: 1.5; /* Mantiene línea del resto */
+}
+
+/* Estilos para Código (Opcional, pero útil) */
+.onpremise-chat-container .message.bot code { /* Código Inline */
+  background-color: var(--medium-bg); /* Fondo medio */
+  color: var(--text-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.onpremise-chat-container .message.bot pre { /* Bloque de Código */
+  background-color: var(--dark-bg); /* Fondo oscuro */
+  color: var(--text-secondary); /* Texto secundario */
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 0.7em 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', Courier, monospace;
+  font-size: 0.85em;
+  line-height: 1.4;
+}
+
+.onpremise-chat-container .message.bot pre code {
+  /* Resetear estilos dentro de <pre> */
+  background-color: transparent; padding: 0; border-radius: 0;
+  color: inherit; font-size: inherit; border: none;
+}
+
+/* Estilos para Tablas (Reutiliza tu clase existente .message-table si la genera react-markdown, o usa table directamente) */
+.onpremise-chat-container .message.bot table {
+  margin: 0.8em 0 1em 0;
+  border-collapse: collapse;
+  width: auto;
+  max-width: 100%;
+  font-size: 0.9rem; /* Ajusta tamaño */
+  border: 1px solid var(--border-color);
+}
+.onpremise-chat-container .message.bot td,
+.onpremise-chat-container .message.bot th {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem; /* Ajusta padding */
+  text-align: left;
+  vertical-align: top;
+}
+.onpremise-chat-container .message.bot th { /* Estilo cabecera */
+  font-weight: 600;
+  background-color: var(--medium-bg);
+  color: var(--text-primary);
+}
+
+/* Indicador de Carga - Si usas la clase typing-indicator */
+.message.bot.typing-indicator span {
+  display: inline-block; width: 7px; height: 7px; margin: 0 1px;
+  background-color: var(--text-secondary); border-radius: 50%; opacity: 0.5;
+  animation: typing-dot 1.2s infinite ease-in-out;
+}
+.message.bot.typing-indicator span:nth-of-type(1) { animation-delay: -0.3s; }
+.message.bot.typing-indicator span:nth-of-type(2) { animation-delay: -0.15s; }
+@keyframes typing-dot { 0%, 80%, 100% { transform: scale(0); opacity: 0.4; } 40% { transform: scale(1.0); opacity: 1; } }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 110px;
+  height: 10px;
+  object-fit: contain;
+}
+
+/* Botones */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--hover-bg);
+  border-color: var(--secondary-color);
+}
+
+.btn-primary {
+  background-color: var(--button-bg);
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--button-hover);
+  box-shadow: var(--shadow);
+}
+
+/* Estilo para los botones de autenticación en el header */
+.header-auth-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.header-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  border: 1px solid #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-btn:hover {
+  background-color: var(--hover-bg);
+  border-color: var(--secondary-color);
+}
+
+/* Estilo para el ícono de usuario */
+.header-user-icon .user-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: invert(100%);
+}
+
+/* Tarjetas */
+.card {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 1.5rem 0;
+  border-left: 4px solid var(--secondary-color);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el chat Claude */
+.claude-chat-box {
+  width: 100%;
+  max-width: 720px;
+  height: 22rem; /* o la altura que necesites */
+  margin-bottom: 15rem; /* si es necesario por diseño */
+  padding: 1rem;
+  border-radius: 15px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  position: absolute; /* está bien dejarlo así */
+  transition: transform 0.4s ease;
+}
+
+.mover-chat {
+  transform: translateX(110px);
+}
+
+
+
+.claude-chat-box::-webkit-scrollbar {
+  width: 3px;
+  opacity: 0.5;
+}
+
+.claude-chat-box::-webkit-scrollbar-track {
+  background: #1e2c3b; 
+  border-radius: 10px;
+}
+
+.claude-chat-box::-webkit-scrollbar-thumb {
+  background-color: rgba(42, 169, 169, 0.5); 
+  border-radius: 10px;
+}
+
+.claude-chat-box::-webkit-scrollbar-thumb:hover {
+  background-color: #198b8b;
+}
+
+.claude-chat-box .messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.claude-chat-box .message {
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  max-width: 75%;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.claude-chat-box .message.user {
+  background-color: #12B2C2;
+  opacity: 0.7;
+  color: #fff;
+  align-self: flex-end;
+  box-shadow: none;
+  border-radius: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: small;
+}
+
+.claude-chat-box .message.bot {
+  background-color: transparent;
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  box-shadow: none;
+  font-size: small;
+}
+
+.claude-chat-box .message::before {
+  content: attr(data-sender);
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+/* Estilos para listas dentro de mensajes */
+.claude-chat-box .message .message-list {
+  margin: 1rem 0 0 0;
+  padding-left: 2rem;
+  list-style-type: disc;
+  color: var(--text-primary);
+}
+
+.claude-chat-box .message .message-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Estilos para tablas dentro de mensajes */
+.claude-chat-box .message .message-table {
+  margin: 1rem 0 0 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.claude-chat-box .message .message-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.claude-chat-box .message .message-table tr:first-child td {
+  font-weight: 600;
+  background-color: var(--medium-bg);
+  color: var(--text-primary);
+}
+
+/* Asegurar que el texto introductorio esté separado */
+.claude-chat-box .message p {
+  margin-bottom: 1rem;
+}
+
+.claude-chat-box .chat-form {
+  width: calc(100% - 3rem);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #1e2a2f;
+  border-radius: 25px;
+  margin: 1rem auto;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para el chat On-Premise */
+.onpremise-chat-container {
+  display: flex;
+  flex-direction: column;
+  background: #1e2a2f;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  height: calc(100vh - var(--header-height));
+  margin: var(--header-height) auto 0;
+  overflow-y: hidden;
+  box-shadow: var(--shadow);
+}
+
+.onpremise-chat-container .chat-claude-btn {
+  display: none;
+}
+
+.onpremise-chat-container .chat-header {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.onpremise-chat-container .chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background-color: #1e2a2f;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.onpremise-chat-container .chat-box .message {
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  max-width: 75%;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.onpremise-chat-container .chat-box .message.user {
+  background-color: var(--message-user-bg);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  white-space: pre-wrap;
+}
+
+.onpremise-chat-container .chat-box .message.bot {
+  background-color: var(--message-bot-bg);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  white-space: pre-wrap;
+}
+
+.onpremise-chat-container .chat-box .message::before {
+  content: attr(data-sender);
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+/* Estilos para listas dentro de mensajes */
+.onpremise-chat-container .chat-box .message .message-list {
+  margin: 1rem 0 0 0;
+  padding-left: 2rem;
+  list-style-type: disc;
+  color: var(--text-primary);
+}
+
+.onpremise-chat-container .chat-box .message .message-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Estilos para tablas dentro de mensajes */
+.onpremise-chat-container .chat-box .message .message-table {
+  margin: 1rem 0 0 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.onpremise-chat-container .chat-box .message .message-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.onpremise-chat-container .chat-box .message .message-table tr:first-child td {
+  font-weight: 600;
+  background-color: var(--medium-bg);
+  color: var(--text-primary);
+}
+
+/* Asegurar que el texto introductorio esté separado */
+.onpremise-chat-container .chat-box .message p {
+  margin-bottom: 1rem;
+}
+
+/* Estilos compartidos para los mensajes */
+.message.user {
+  background-color: var(--message-user-bg);
+  color: #fff;
+  align-self: flex-end;
+}
+
+.message.bot {
+  background-color: var(--message-bot-bg);
+  color: var(--text-primary);
+  align-self: flex-start;
+}
+
+/* Formulario de chat */
+.chat-form {
+  width: calc(77% - 3rem);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.5rem;
+  border-radius: 6px;
+  background: transparent;
+  height: 35%;
+  margin-left: 1rem;
+  position:relative;
+  margin-top: 0.5rem;
+  width: 43rem;
+  min-height: 40px;
+  max-height: 176px;
+  resize: none;
+  align-items: flex-end;
+}
+
+.chat-form-onpremise {
+  width: calc(100% - 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 13rem;
+  background-color: #1e2a2f;
+  border-radius: 25px;
+  margin: 1rem auto;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.chat-input-container {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.chat-input-container:focus-within {
+  border-color: var(--secondary-color);
+  box-shadow: var(--glow);
+}
+
+.chat-form textarea {
+  width: 130%;
+  min-height: 60px;
+  max-height: 200px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  outline: none;
+  resize: none;
+  overflow-y: auto; 
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+  margin-bottom: 2.5rem;
+  margin-left: -1rem;
+  min-height: 20px;
+  max-height: 130px;
+}
+
+/* Scroll para Chrome, Edge, Safari */
+.chat-textarea::-webkit-scrollbar {
+  width: 2px;
+}
+
+.chat-textarea::-webkit-scrollbar-track {
+  background: rgba(30, 44, 59, 0.2);
+  border-radius: 10px;
+}
+
+.chat-textarea::-webkit-scrollbar-thumb {
+  background-color: rgba(44, 53, 53, 0.5);
+  border-radius: 10px;
+}
+
+.chat-textarea::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(25, 139, 139, 0.8);
+}
+
+.chat-form textarea::placeholder {
+  color: var(--text-primary);
+}
+
+.chat-form-onpremise textarea::placeholder {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-color: var(--medium-bg);
+  background: var(--medium-bg);
+  align-items: space-between;
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+}
+
+.chat-form button {
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chat-form button:hover {
+  background-color: var(--button-hover);
+  box-shadow: var(--shadow);
+}
+
+/* Contenedor principal */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Navbar */
+.navbar ul {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar a {
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Títulos */
+h1 {
+  font-size: 2.5rem;
+  color: white;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 40px;
+  font-weight: lighter;
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(110vh - var(--header-height));
+  margin: 0;
+  padding: 0;
+   background:
+    radial-gradient(circle at bottom right, #12b2c2 0%, #0a1e2d 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    cover,
+    40px 40px, 40px 40px; /* tamaño del grid */
+  background-position:
+    center,
+    top left, top left; 
+  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid rgba(121, 121, 121, 0.274);
+  margin-bottom: 1.2rem;
+  border-radius: 5px;
+  margin-top: 1.2rem;
+}
+
+.welcome-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 37, 38, 0.7);
+  z-index: 1;
+}
+
+.welcome-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.welcome-subtitle {
+  font-size: 1.25rem;
+  text-align: center;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 1rem 0 2rem;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+/* Responsive */
+
+@media (min-width: 1440px) {
+  :root {
+    --font-size-base: 18px;
+    --max-width-page: 1400px;
+  }
+
+  body {
+    max-width: var(--max-width-page);
+    margin: 0 auto;
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: 1000px) {
+  .app-container {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+  .logo img {
+    width: 120px;
+  }
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+  .onpremise-chat-container {
+    height: calc(100vh - var(--header-height));
+    margin: var(--header-height) auto 0;
+  }
+  .claude-chat-box {
+    height: calc(100vh - var(--header-height));
+    margin: 0 auto;
+  }
+  .welcome-title {
+    font-size: 2rem;
+  }
+  .claude-chat-box {
+    max-width: 100%;
+    padding: 0.8rem;
+  }
+  .claude-chat-box .chat-form {
+    max-width: 100%;
+    padding: 0.6rem;
+  }
+  .welcome-Logo{
+ position: absolute;
+ margin-bottom: 40%;
+ margin-right: 90%;
+ color: white;
+ width: 127.42px;
+ height: 42px;
+}
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .chat-form,
+  .chat-form-onpremise {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .chat-form .chat-input-container,
+  .chat-form-onpremise .chat-input-container {
+    margin-right: 0;
+  }
+  .chat-form button,
+  .chat-form-onpremise button {
+    width: 100%;
+  }
+  .claude-chat-box .chat-form {
+    padding: 0.5rem;
+  }
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+
+  .welcome-Logo{
+ position: absolute;
+ margin-bottom: 40%;
+ margin-right: 90%;
+ color: white;
+ width: 127.42px;
+ height: 42px;
+}
+}
+
+
+.start-chat-btn{
+  background-color: #00BFD4;
+  border-radius: 5px;
+  font-size: 16px;
+  color: black;
+}
+
+.Botones-welcome{
+  padding: 1rem;
+  margin-bottom: 2px;
+  display: flex;
+  gap: 10px;
+}
+
+.Iniciar-Sesion{
+  background-color: gray;
+  opacity: 0.5;
+  border-radius: 5px;
+  color: white;
+}
+
+h3{
+  opacity: 0.5;
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+.welcome-Logo{
+ position: absolute;
+ margin-bottom: 40%;
+ margin-right: 90%;
+ color: white;
+ width: 127.42px;
+ height: 42px;
+}
+
+.chat-selector{
+  display: none;
+}
+
+
+.Chat_bot{
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(110vh - var(--header-height));
+  margin: 0;
+  padding: 0;
+   background:
+    radial-gradient(circle at bottom right, #12b2c2 0%, #0a1e2d 50%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    cover,
+    40px 40px, 40px 40px; 
+  background-position:
+    center,
+    top left, top left;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid rgba(121, 121, 121, 0.274);
+  margin-bottom: 1.2rem;
+  border-radius: 5px;
+  margin-top: 1.2rem;
+}
+
+.Form_Comple{
+  background-color: transparent;
+  border: 2px solid gray;
+  border-radius: 5px;
+  width: 722px;
+  margin-bottom: 0rem;
+  position: absolute;
+  height: auto;
+  max-height: auto;
+  transition: transform 0.4s ease;
+}
+
+.Form_Comple {
+  transition: transform 0.5s ease;
+}
+
+.mover-form {
+  transform: translateX(110px); 
+}
+
+.bajar-formulario {
+  transform: translateY(200px); 
+}
+
+
+.mover-form.bajar-formulario {
+  transform: translate(110px, 200px); 
+}
+
+.buttom_env{
+  background-color: transparent;
+  position: absolute;
+  margin-top: 4.3rem;
+  margin-left: 32.8rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.boton_mas{
+  background-color: #676C74;
+  border-radius: 100%;
+  border: 2px solid #a1afc5;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+
+.boton_enviar{
+  background-color: #12B2C2;
+  padding: 20%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 27%;
+  padding-right: 27%;
+}
+
+
+.formulario-login{
+  background-color: transparent;
+  border: 2px solid grey;
+  border-radius: 5px;
+  width: 361px;
+  height: 362px;
+  color: black;
+}
+
+.formulario-login form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formulario-login button{
+  background-color: #12B2C2;
+  color: white;
+  border-radius: 5px;
+}
+
+.formulario-login input{
+  margin-top: 1rem;
+  border: 2px solid gray;
+  background-color: rgba(128, 128, 128, 0.5);
+  outline: none;
+  width: 322px;
+  height: 46.28px;
+  border-radius: 5px;
+}
+
+.formulario-login ::placeholder{
+  color: white;
+  padding-left: 1rem;
+  opacity: 0.5;
+}
+
+.formulario-login h2{
+  color: white;
+}
+
+.Login{
+  background-color: transparent;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+.formulario-login h2{
+  margin-left: 10rem;
+}
+
+.mover-derecha {
+  transform: translateX(230px);
+}
+
+.message_bot{
+    background: transparent;
+    box-shadow: none;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+
+.Message_Mateo{
+    background: transparent;
+    box-shadow: none;
+    text-align: center;
+    margin-top: 7rem;
+}
+
+.chat-form-textarea::-webkit-scrollbar {
+  width: 2px;
+}
+
+.chat-form-textarea::-webkit-scrollbar-track {
+  background: rgba(30, 44, 59, 0.2);
+  border-radius: 10px;
+}
+
+.chat-form-textarea::-webkit-scrollbar-thumb {
+  background-color: rgba(42, 169, 169, 0.5);
+  border-radius: 10px;
+}
+
+.chat-form-textarea::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(25, 139, 139, 0.8);
+}
+
+.message-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.message-table th,
+.message-table td {
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.message-table thead {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.message-table tr:nth-child(even) {
+  background-color: transparent;
+}
+
+.message-table td:first-child {
+  font-family: monospace;
+}
+
+.file-preview {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px 10px;
+  margin-top: 4px;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.9rem;
+  position: absolute;
+}
+
+.message.bot table {
+  width: 140%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.message.bot th,
+.message.bot td {
+  border: 1px solid rgba(255, 255, 255, 0.2); /* o usa un color más oscuro si es modo claro */
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+.message.bot thead {
+  background-color: rgba(255, 255, 255, 0.05); /* contraste ligero para modo oscuro */
+  font-weight: bold;
+}
+
+.message.bot tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.message.bot table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.message.bot table th:first-child,
+.message.bot table td:first-child {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+.message.bot table th:last-child,
+.message.bot table td:last-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.message.bot table {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+textarea::placeholder{
+  opacity: 0.5;
+}
+
+
+/* modo dark modo linght */
+
+/* Estilo para modo oscuro */
+
+/* Por defecto (modo oscuro activado) */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+@media (max-width: 600px) {
+  #root {
+    padding: 0 0.5rem;
+  }
+}
+ 
+/* Pantallas medianas (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  #root {
+    padding: 0 1rem;
+  }
+}
+ 
+/* Pantallas grandes (laptops y desktop) */
+@media (min-width: 1024px) {
+  #root {
+    width: 100%;
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
+
+.markdown-content p {
+  margin: 0.2rem 0;
+  line-height: 1.4;
+}
+
+.markdown-content strong {
+  font-weight: bold;
+}

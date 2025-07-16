@@ -1,0 +1,87 @@
+/* Modo claro (cuando se quita dark-mode) */
+body:not(.dark-mode) {
+  background-color: hsl(0, 0%, 100%);
+  color: #000000;
+}
+
+body:not(.dark-mode) .sidebar {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+body:not(.dark-mode) .chat-textarea {
+  color: #000;
+}
+
+body:not(.dark-mode) .claude-chat-box {
+  color: #000;
+}
+
+body:not(.dark-mode) .boton_mas,
+body:not(.dark-mode) .boton_enviar {
+  background-color: #ddd;
+  color: #000;
+}
+
+body:not(.dark-mode) .Chat_bot{
+  background:
+    radial-gradient(circle at bottom right, #12b2c2 0%, #ffffff 40%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    cover,
+    40px 40px, 40px 40px;
+  background-position:
+    center,
+    top left, top left; 
+  background-repeat: no-repeat;
+}
+
+body:not(.dark-mode){
+     background:
+    radial-gradient(circle at bottom right, #12b2c2 0%, #ffffff 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    cover,
+    40px 40px, 40px 40px; /* tamaño del grid */
+  background-position:
+    center,
+    top left, top left;
+}
+
+body:not(.dark-mode) .welcome-container{
+  background:
+    radial-gradient(circle at bottom right, #12b2c2 0%, #ffffff 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    cover,
+    40px 40px, 40px 40px; /* tamaño del grid */
+  background-position:
+    center,
+    top left, top left;
+}
+
+body:not(.dark-mode) .menu-icon div{
+    color: black;
+    background-color: black;
+}
+
+body:not(.dark-mode) .message.user{
+    color: black;
+} 
+
+body:not(.dark-mode) .message.bot {
+   color: #000;
+}
+
+body:not(.dark-mode) .boton_enviar{
+  color: white;
+  background-color: #000;
+}
+
+body:not(.dark-mode) textarea::placeholder{
+    color: black;
+}
+
