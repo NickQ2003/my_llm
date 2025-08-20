@@ -132,15 +132,10 @@ def extraer_url(texto: str) -> list:
     url_regex = r"https?://[^\s,]+"
     return re.findall(url_regex, texto)
 
-def infer_client_and_sources(message: str, session_id: Optional[str]) -> tuple:
-    # Ejemplo simple usando entidades y sesión
+def infer_client_and_sources(message: str, session_id: Optional[str] = None) -> tuple:
+
     cliente = None
     fuentes = []
-
-    # Buscar cliente en la sesión (puedes mapear usuario <-> cliente si tienes auth)
-    if session_id:
-        cliente = lookup_client_for_session(session_id)  # Implementa tu lógica
-    # Buscar cliente/fuente por NLP o reglas
     entidades = extraer_entidades(message)
     for ent in entidades:
         c = canonicalize(ent['entidad'], CLIENT_ALIASES)
@@ -470,6 +465,11 @@ async def chat_with_openai(request: ChatRequest):
             "Guía los procesos de escalación para incidentes críticos hacia analistas senior.\n"
             "Desarrollado por DigiSoc para soporte avanzado en ciberseguridad."
         )
+
+        cliente, fuentes = infer_client_and_sources(message, session_id)
+        data = await get_security_data_for_client(cliente, fuentes)
+        logger.info(f"Datos MCP para {cliente}/{fuentes}: {data}")
+
         mcp_data_str = json.dumps(data, indent=2, ensure_ascii=False)
         mcp_data_str = mcp_data_str.replace("```", "´´´")  # Evitar conflictos con Markdown
         mcp_data_str = mcp_data_str.replace("`", "´")  # Evitar conflictos con Markdown
@@ -484,8 +484,6 @@ async def chat_with_openai(request: ChatRequest):
         ])
         response_content = response.content
 
-        cliente, fuentes = infer_client_and_sources(message, session_id)
-        data = await get_security_data_for_client(cliente, fuentes)
         # Luego, pasa esos datos como contexto al LLM
 
         # Entidades NER
@@ -898,4 +896,4 @@ def handle_mcp(request: MCPRequest):
     ...
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
